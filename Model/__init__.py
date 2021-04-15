@@ -25,6 +25,39 @@ def resNet50(dataset_name, input_shape=(32,32,3)):
         )
     return model
 
+
+def resNet50V2(dataset_name, input_shape=(32,32,3)):
+    from Data import get_class_num
+    class_number = get_class_num(dataset_name)
+    model = tf.keras.applications.ResNet50V2(
+            include_top=False,
+            weights=None,
+            input_tensor=None,
+            input_shape=input_shape,
+            pooling="avg",
+            classes=class_number,
+            classifier_activation="softmax",
+        )
+    return model
+
+def MobileNet(dataset_name, input_shape=(32,32,3)):
+    from Data import get_class_num
+    class_number = get_class_num(dataset_name)
+    model = tf.keras.applications.MobileNet(
+            input_shape=input_shape,
+            alpha=1.0,
+            depth_multiplier=1,
+            dropout=0.001,
+            include_top=False,
+            weights=None,
+            input_tensor=None,
+            pooling="avg",
+            classes=class_number,
+            classifier_activation="softmax",
+        )
+    return model
+
+
 def MobileNetV2(dataset_name, input_shape=(32,32,3)):
     from Data import get_class_num
     class_number = get_class_num(dataset_name)
@@ -34,9 +67,22 @@ def MobileNetV2(dataset_name, input_shape=(32,32,3)):
             include_top=False,
             weights=None,
             input_tensor=None,
-            pooling=None,
+            pooling="avg",
             classes=class_number,
             classifier_activation="softmax",
         )
     return model
 
+
+def DenseNet121(dataset_name, input_shape=(32,32,3)):
+    from Data import get_class_num
+    class_number = get_class_num(dataset_name)
+    model = tf.keras.applications.DenseNet121(
+            include_top=False,
+            weights=None,
+            input_tensor=None,
+            input_shape=input_shape,
+            pooling="avg",
+            classes=class_number,
+        )
+    return model
