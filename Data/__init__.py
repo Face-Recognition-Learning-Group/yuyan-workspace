@@ -3,7 +3,8 @@ import Data.preprocessing as data_preprocessing
 
 
 def load_data(dataset_name, preprocessing=data_preprocessing.default_uint8_image_preprocessing, data_dir=None):
-    assert dataset_name in ['mnist', 'MNIST', "cifar10", "CIFAR10", "cifar-10", "CIFAR-10"]
+    assert dataset_name in ['mnist', 'MNIST', "cifar10", "CIFAR10", "cifar-10", "CIFAR-10", "cifar100", "CIFAR100", "cifar-100", "CIFAR-100"]
+    # mnist
     if dataset_name == "mnist" or dataset_name == "MNIST":
         try:
             import Data.Instances as data_instances
@@ -13,7 +14,7 @@ def load_data(dataset_name, preprocessing=data_preprocessing.default_uint8_image
         except Exception as e:
                 raise data_exceptions.DataLoadError("*** MNIST Data loaded/preporcessing derror. Infomation: {}".format(str(e)))
 
-    # expanding
+    # cifar10
     if dataset_name == "cifar10" or dataset_name == "CIFAR10" or \
         dataset_name == "cifar-10" or dataset_name == "CIFAR-10":
         assert data_dir is not None
@@ -23,13 +24,25 @@ def load_data(dataset_name, preprocessing=data_preprocessing.default_uint8_image
             return x_train, y_train, x_test, y_test
     
         except Exception as e:
-                raise data_exceptions.DataLoadError("*** CIFAR10 Data loaded/preporcessing derror. Infomation: {}".format(str(e)))
+                raise data_exceptions.DataLoadError("*** CIFAR-10 Data loaded/preporcessing derror. Infomation: {}".format(str(e)))
+    
+    # cifar100
+    if dataset_name == "cifar100" or dataset_name == "CIFAR100" or \
+        dataset_name == "cifar-100" or dataset_name == "CIFAR-100":
+        assert data_dir is not None
+        try:
+            import Data.Instances as data_instances
+            x_train, y_train, x_test, y_test = data_instances.DataLoader().load_cifar100_data(data_dir, preprocessing)
+            return x_train, y_train, x_test, y_test
+    
+        except Exception as e:
+                raise data_exceptions.DataLoadError("*** CIFAR-100 Data loaded/preporcessing derror. Infomation: {}".format(str(e)))
 
     raise data_exceptions.DataLoadError("*** Unexpected Error. dataset_name: {}".format(dataset_name))
 
 
 def get_class_num(dataset_name):
-    assert dataset_name in ['mnist', 'MNIST', "cifar10", "CIFAR10", "cifar-10", "CIFAR-10"]
+    assert dataset_name in ['mnist', 'MNIST', "cifar10", "CIFAR10", "cifar-10", "CIFAR-10", "cifar100", "CIFAR100", "cifar-100", "CIFAR-100"]
     
     if dataset_name == 'mnist' or dataset_name == 'MNIST':
         try:
@@ -45,5 +58,15 @@ def get_class_num(dataset_name):
             import Data.cifar_10_data as data_cifar_10
             return data_cifar_10.get_class_num()
         except Exception as e:
-            raise data_exceptions.DataLoadError("*** CIFAR class number loaded error. Infomation: ", str(e))
+            raise data_exceptions.DataLoadError("*** CIFAR-10 class number loaded error. Infomation: ", str(e))
+
+    if dataset_name == "cifar100" or dataset_name == "CIFAR100" or \
+        dataset_name == "cifar-100" or dataset_name == "CIFAR-100":
+        try:
+            import Data.cifar_100_data as data_cifar_100
+            return data_cifar_100.get_class_num()
+        except Exception as e:
+            raise data_exceptions.DataLoadError("*** CIFAR-100 class number loaded error. Infomation: ", str(e))
+        
+    
     raise data_exceptions.DataLoadError("*** Unexpected dataset_name: {}".format(dataset_name))
