@@ -24,7 +24,7 @@ def cifar10_classification_test_procedure(save_path):
 def cifar100_classification_test_procedure(save_path):
     import Data
     start_time = time.time()
-    x_train, y_train, x_test, y_test = Data.load_data(dataset_name='cifar10', data_dir="./tmp/cifar-100-python/")
+    x_train, y_train, x_test, y_test = Data.load_data(dataset_name='cifar100', data_dir="./tmp/cifar-100-python/")
     print("[Test] Load data time: ", time.time() - start_time)
     model = tf.keras.models.load_model(save_path)
     model.evaluate(x_test, y_test)
