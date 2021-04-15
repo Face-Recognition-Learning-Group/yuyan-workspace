@@ -26,6 +26,30 @@ def resNet50(dataset_name, input_shape=(32,32,3)):
     return model
 
 
+def alexnet(dataset_name, shape):
+    from Data import get_class_num
+    class_number = get_class_num(dataset_name)
+    input_layer = tf.keras.layers.Input(shape)
+
+    x = tf.keras.layers.Conv2D(filters=96, kernel_size=[3,3], strides=[1,1], padding='same')(
+        input_layer)
+    x = tf.keras.layers.LayerNormalization()(x)
+    x = tf.keras.layers.Conv2D(filters=256, kernel_size=[3,3], padding='same')(x)
+    x = tf.keras.layers.LayerNormalization()(x)
+    x = tf.keras.layers.MaxPool2D(pool_size=(3, 3), strides=[2, 2], padding='same')(x)
+
+    x = tf.keras.layers.Conv2D(filters=384, kernel_size=[3, 3], padding='same')(x)
+    x = tf.keras.layers.Conv2D(filters=384, kernel_size=[3, 3], padding='same')(x)
+    x = tf.keras.layers.Conv2D(filters=256, kernel_size=[3, 3], padding='same')(x)
+
+    x = tf.keras.layers.MaxPool2D(pool_size=(3, 3), strides=[2, 2], padding='same')(x)
+
+    x = tf.keras.layers.GlobalAveragePooling2D()(x)
+    x = tf.keras.layers.Dense(units=class_number, activation='softmax')(x)
+
+    model = tf.keras.models.Model(inputs=input_layer, outputs=x)
+    return model
+
 def resNet50V2(dataset_name, input_shape=(32,32,3)):
     from Data import get_class_num
     class_number = get_class_num(dataset_name)

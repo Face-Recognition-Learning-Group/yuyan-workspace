@@ -1,5 +1,6 @@
 import os 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = '3'
+os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
 
 import Tasks.train as train_porcedure
 import Tasks.test as test_porcedure
@@ -28,10 +29,10 @@ if __name__ == '__main__':
     # train_porcedure.cifar10_classfication_train_procedure(save_path=save_path, epoch=5)
     # test_porcedure.cifar10_classification_test_procedure(save_path=save_path)
     
-    save_path = "./tmp/model/cifar10_restNet50_model/"
+    save_path = "./tmp/model/cifar10_alexnet50_model/"
     print("*"*80)
     print("Train CIFAR10 with cifar10_classfication_train_procedure_with_resNet50")
-    train_porcedure.cifar10_classfication_train_procedure_with_resNet50(save_path=save_path, epoch=130)
+    train_porcedure.cifar10_classfication_train_procedure_with_alexnet(save_path=save_path, epoch=30)
     test_porcedure.cifar10_classification_test_procedure(save_path=save_path)
     
     # save_path = "./tmp/model/cifar10_restNet50V2_model/"

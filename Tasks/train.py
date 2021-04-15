@@ -1,4 +1,5 @@
 import time
+import numpy as np
 import tensorflow as tf
 from tensorflow.python.keras import activations
 from tensorflow.keras.callbacks import LearningRateScheduler
@@ -63,6 +64,36 @@ def cifar10_classfication_train_procedure_with_resNet50(save_path, epoch=5):
                   metrics=['accuracy'])
     
     model.fit(x_train, y_train, epochs=epoch, batch_size=64, callbacks=[lr_scheduler])
+    model.save(save_path)
+
+def cifar10_classfication_train_procedure_with_alexnet(save_path, epoch=5):
+    import Data
+    import Model
+
+    def lr_schedule(epoch_index, cur_lr):
+        if epoch_index < 100:
+            return 0.001
+        elif epoch_index < 120:
+            return 0.02
+        else:
+            return 0.02
+
+    def image_preprocessing(images):
+        return images
+
+    start_time = time.time()
+    x_train, y_train, x_test, y_test = Data.load_data(dataset_name="cifar10",data_dir="./tmp/cifar-10-batches-py/", preprocessing=image_preprocessing)
+    end_time = time.time()
+    print("[Train] Load data time: ", end_time - start_time)
+
+    model = Model.alexnet(dataset_name="cifar10", shape=(32, 32, 3))
+    model.summary()
+
+    lr_scheduler = LearningRateScheduler(lr_schedule, verbose=1)
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    model.fit(x_train, y_train, epochs=epoch, batch_size=32, callbacks=[lr_scheduler])
     model.save(save_path)
 
 def cifar10_classfication_train_procedure_with_resNet50V2(save_path, epoch=5):
