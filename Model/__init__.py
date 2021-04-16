@@ -110,3 +110,25 @@ def DenseNet121(dataset_name, input_shape=(32,32,3)):
             classes=class_number,
         )
     return model
+
+
+def resnet34(dataset_name, input_shape):
+    from Model.resnet18_34 import ResNet18, ResNet34
+
+    from Data import get_class_num
+    class_number = get_class_num(dataset_name)
+
+    model = ResNet34(input_shape, class_number)
+    return model
+
+
+def resnet18(dataset_name, input_shape):
+    from Model.resnet18_34 import ResNet18, ResNet34
+
+    from Data import get_class_num
+    class_number = get_class_num(dataset_name)
+
+    model = ResNet18(input_shape, class_number)
+    return model
+
+
