@@ -38,7 +38,7 @@ if __name__ == '__main__':
     save_path = "./tmp/model/cifar10_resnet34_model/"
     print("*"*80)
     print("Train CIFAR10 with cifar10_classfication_train_procedure_with_resNet34")
-    train_porcedure.cifar10_classfication_train_procedure_with_resnet34(save_path=save_path, epoch=30)
+    # train_porcedure.cifar10_classfication_train_procedure_with_resnet34(save_path=save_path, epoch=30)
     test_porcedure.cifar10_classification_test_procedure(save_path=save_path)
     
     # save_path = "./tmp/model/cifar10_restNet50V2_model/"

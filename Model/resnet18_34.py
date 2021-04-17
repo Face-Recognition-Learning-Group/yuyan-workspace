@@ -93,14 +93,14 @@ def ResNet34(input_shape, class_number):
     input_tensor = layers.Input(input_shape, name='resnet34_input')
 
 
-    x = layers.Conv2D(64, (7, 7),
+    x = layers.Conv2D(64, (3, 3),
                       padding='same',
                       kernel_initializer='he_normal',
                       kernel_regularizer=l2(weight_decay),
-                      strides=(2, 2))(input_tensor)
+                      strides=(1, 1))(input_tensor)
     x = layers.BatchNormalization()(x)
     x = layers.Activation('relu')(x)
-    x = layers.MaxPooling2D((6, 3), strides=(2, 2))(x)
+    # x = layers.MaxPooling2D((6, 3), strides=(2, 2))(x)
 
     x = identity_block(x, (3,3), [48,64])
     x = identity_block(x, (3,3), [48,64])
