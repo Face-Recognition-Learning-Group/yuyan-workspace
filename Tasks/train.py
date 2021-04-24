@@ -127,6 +127,32 @@ def cifar10_classfication_train_procedure_with_resnet34(save_path, epoch=5):
     model.save(save_path)
 
 
+def faces_vgg_classfication_train_procedure_with_resnet34(save_path, epoch=5):
+    import Data
+    import Model
+
+    def lr_schedule(epoch_index, cur_lr):
+        if epoch_index < 100:
+            return 0.001
+        elif epoch_index < 120:
+            return 0.02
+        else:
+            return 0.02
+
+    train_record_tf_object = Data.load_data(dataset_name="faces_vgg",data_dir=None, record_file=r'D:\yuyan-workspace\tmp\face_train.records',
+                                            batch_size=32, parallel_num=16)
+
+    model = Model.resnet34(dataset_name="faces_vgg", input_shape=(112, 112, 3))
+    model.summary()
+
+    lr_scheduler = LearningRateScheduler(lr_schedule, verbose=1)
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    model.fit(train_record_tf_object, epochs=epoch, callbacks=[lr_scheduler])
+    model.save(save_path)
+
+
 def cifar10_classfication_train_procedure_with_resNet50V2(save_path, epoch=5):
     import Data
     import Model

@@ -100,7 +100,7 @@ def ResNet34(input_shape, class_number):
                       strides=(1, 1))(input_tensor)
     x = layers.BatchNormalization()(x)
     x = layers.Activation('relu')(x)
-    # x = layers.MaxPooling2D((6, 3), strides=(2, 2))(x)
+    x = layers.MaxPooling2D((3, 3), strides=(2, 2))(x)
 
     x = identity_block(x, (3,3), [48,64])
     x = identity_block(x, (3,3), [48,64])

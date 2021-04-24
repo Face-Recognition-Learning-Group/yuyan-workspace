@@ -54,3 +54,6 @@ def get_class_num():
 if __name__ == '__main__':
     x_train, y_train, x_test, y_test = load_data("../tmp/cifar-10-batches-py/")
     print(x_train.shape, len(y_train), x_test.shape, len(y_test))
+
+
+    a = list([1,2,3])

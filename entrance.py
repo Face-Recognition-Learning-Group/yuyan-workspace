@@ -35,11 +35,17 @@ if __name__ == '__main__':
     # train_porcedure.cifar10_classfication_train_procedure_with_alexnet(save_path=save_path, epoch=30)
     # test_porcedure.cifar10_classification_test_procedure(save_path=save_path)
 
-    save_path = "./tmp/model/cifar10_resnet34_model/"
+    # save_path = "./tmp/model/cifar10_resnet34_model/"
+    # print("*"*80)
+    # print("Train CIFAR10 with cifar10_classfication_train_procedure_with_resNet34")
+    # # train_porcedure.cifar10_classfication_train_procedure_with_resnet34(save_path=save_path, epoch=30)
+    # test_porcedure.cifar10_classification_test_procedure(save_path=save_path)
+
+    save_path = "./tmp/model/faces_vgg_resnet34_model/"
     print("*"*80)
-    print("Train CIFAR10 with cifar10_classfication_train_procedure_with_resNet34")
+    print("Train faces_vgg with faces_vgg_classfication_train_procedure_with_resNet34")
     # train_porcedure.cifar10_classfication_train_procedure_with_resnet34(save_path=save_path, epoch=30)
-    test_porcedure.cifar10_classification_test_procedure(save_path=save_path)
+    train_porcedure.faces_vgg_classfication_train_procedure_with_resnet34(save_path=save_path)
     
     # save_path = "./tmp/model/cifar10_restNet50V2_model/"
     # print("*"*80)
